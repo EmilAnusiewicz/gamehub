@@ -26,20 +26,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($result) == 1) {
 
-        $user = mysqli_fetch_assoc($result);
+    $user = mysqli_fetch_assoc($result);
 
-        if (password_verify($password, $user["password"])) {
+    if($user["is_blocked"] == 1){
 
-            $_SESSION["id"] = $user["id"];
-            $_SESSION["login"] = $user["login"];
-            $_SESSION["is_admin"] = $user["is_admin"];
+        $message =
+            "Twoje konto zostało zablokowane przez administratora.";
 
-            header("Location: index.php");
-            exit();
-        }
     }
+    elseif(password_verify(
+        $password,
+        $user["password"]
+    )) {
 
+        $_SESSION["id"] = $user["id"];
+        $_SESSION["login"] = $user["login"];
+        $_SESSION["is_admin"] = $user["is_admin"];
+
+        header("Location: index.php");
+        exit();
+    }
+}
+
+if(!$message){
     $message = "Nieprawidłowy login lub hasło.";
+}
 }
 ?>
 

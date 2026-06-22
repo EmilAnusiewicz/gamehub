@@ -34,7 +34,7 @@ $users = mysqli_query(
                 <th>Rola</th>
 
                 <th>Data rejestracji</th>
-
+                <th>Status</th>
                 <th>Akcja</th>
 
 
@@ -65,11 +65,22 @@ $users = mysqli_query(
         strtotime($user["created_at"])
     ) ?>
 </td>
+
+
+   <td class="status-cell">
+
+    <?= $user["is_blocked"]
+        ? '<span class="status-dot red"></span> Zablokowany'
+        : '<span class="status-dot green"></span> Aktywny' ?>
+
+</td>
+
                     <td>
 
                         <?php if($user["id"] != $_SESSION["id"]): ?>
-
+<div class="user-actions">
                             <a
+                            
                                 href="toggle_admin.php?id=<?= $user["id"] ?>"
                                 class="btn">
 
@@ -77,8 +88,20 @@ $users = mysqli_query(
                                     ? "Odbierz admina"
                                     : "Nadaj admina" ?>
 
+
                             </a>
 
+<a
+    href="toggle_block.php?id=<?= $user["id"] ?>"
+    class="btn btn-danger">
+
+    <?= $user["is_blocked"]
+        ? "Odblokuj"
+        : "Zablokuj" ?>
+
+</a>
+
+                        </div>
                         <?php endif; ?>
 
                     </td>
