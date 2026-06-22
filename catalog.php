@@ -41,43 +41,54 @@ $query = mysqli_query(
     <h2 class="section-title">
         🎮 Katalog gier
     </h2>
+    <div class="catalog-tools">
+
+    <input
+        type="text"
+        id="catalogSearch"
+        placeholder="🔍 Szukaj gry...">
+
     <form method="GET" class="filter-form">
 
-    <select name="genre">
+        <select name="genre">
 
-        <option value="">
-            Wszystkie gatunki
-        </option>
-
-        <?php while($genre = mysqli_fetch_assoc($genres)): ?>
-
-            <option
-                value="<?= $genre["id"] ?>"
-                <?= isset($_GET["genre"]) && $_GET["genre"] == $genre["id"] ? "selected" : "" ?>>
-
-                <?= htmlspecialchars($genre["name"]) ?>
-
+            <option value="">
+                Wszystkie gatunki
             </option>
 
-        <?php endwhile; ?>
+            <?php while($genre = mysqli_fetch_assoc($genres)): ?>
 
-    </select>
+                <option
+                    value="<?= $genre["id"] ?>"
+                    <?= isset($_GET["genre"]) && $_GET["genre"] == $genre["id"] ? "selected" : "" ?>>
 
-    <button
-        type="submit"
-        class="btn">
+                    <?= htmlspecialchars($genre["name"]) ?>
 
-        Filtruj
+                </option>
 
-    </button>
+            <?php endwhile; ?>
 
-</form>
+        </select>
 
-    <div class="games-grid">
+        <button
+            type="submit"
+            class="btn">
+
+            Filtruj
+
+        </button>
+
+    </form>
+
+</div>
+
+<div class="games-grid">
 
         <?php while($game = mysqli_fetch_assoc($query)): ?>
 
-            <div class="game-card">
+            <div
+    class="game-card"
+    data-title="<?= strtolower(htmlspecialchars($game["title"])) ?>">
 
                 <img
                     src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>"
@@ -140,5 +151,35 @@ $query = mysqli_query(
     </div>
 
 </section>
+<script>
 
+const searchInput =
+document.getElementById("catalogSearch");
+
+if(searchInput){
+
+    searchInput.addEventListener(
+        "keyup",
+        function(){
+
+            const value =
+            this.value.toLowerCase();
+
+            document
+                .querySelectorAll(".game-card")
+                .forEach(card=>{
+
+                    const title =
+                    card.dataset.title;
+
+                    card.style.display =
+                        title.includes(value)
+                        ? ""
+                        : "none";
+                });
+        }
+    );
+}
+
+</script>
 <?php require("footer.php"); ?>

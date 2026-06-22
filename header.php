@@ -27,21 +27,24 @@ if(session_status() === PHP_SESSION_NONE){
         GameHub
     </div>
 
-    <form class="header-search"
-          action="index.php"
-          method="GET">
+    <?php if(basename($_SERVER["PHP_SELF"]) != "catalog.php"): ?>
 
-        <input
-            type="text"
-            id="searchInput"
-            name="search"
-            placeholder="🔍 Szukaj gry..."
-            autocomplete="off">
+<form class="header-search"
+      action="index.php"
+      method="GET">
 
-        <div id="searchResults"></div>
+    <input
+        type="text"
+        id="searchInput"
+        name="search"
+        placeholder="🔍 Szukaj gry..."
+        autocomplete="off">
 
-    </form>
+    <div id="searchResults"></div>
 
+</form>
+
+<?php endif; ?>
 </div>
     <nav>
 

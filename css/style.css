@@ -1117,3 +1117,69 @@ input[type=number]{
 .admin-table th{
     color:#4db8ff;
 }
+.search-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.search-info strong{
+    color:white;
+}
+
+.search-info small{
+    color:#94a3b8;
+    margin-top:4px;
+}
+.search-thumb{
+    width:60px;
+    height:85px;
+
+    object-fit:cover;
+
+    border-radius:8px;
+
+    flex-shrink:0;
+}
+.search-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.catalog-tools{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    margin-bottom:30px;
+
+    flex-wrap:wrap;
+}
+
+.catalog-tools input{
+    width:350px;
+
+    padding:14px 18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#334155;
+
+    color:white;
+
+    margin-bottom:0;
+}
+
+.catalog-tools .filter-form{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    margin:0;
+    width:auto;
+}
+
+.catalog-tools .filter-form select{
+    margin-bottom:0;
+}

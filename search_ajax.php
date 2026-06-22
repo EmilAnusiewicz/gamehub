@@ -16,8 +16,15 @@ if(strlen($search) < 2){
 $result = mysqli_query(
     $conn,
     "
-    SELECT id, title, cover
-    FROM games
+    SELECT
+    games.id,
+    games.title,
+    games.cover,
+    games.rating,
+    genres.name AS genre_name
+FROM games
+LEFT JOIN genres
+ON games.genre_id = genres.id
     WHERE title LIKE '%$search%'
     ORDER BY title
     LIMIT 5
@@ -32,11 +39,23 @@ while($game = mysqli_fetch_assoc($result))
     href="details.php?id=<?= $game["id"] ?>">
 
     <img
-        <?= $game["cover"] ?>
+        src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>"
+        alt=""
+        class="search-thumb">
 
-    <span>
+    <div class="search-info">
+
+    <strong>
         <?= htmlspecialchars($game["title"]) ?>
-    </span>
+    </strong>
+
+    <small>
+        🎮 <?= htmlspecialchars($game["genre_name"]) ?>
+        •
+        ⭐ <?= $game["rating"] ?>/10
+    </small>
+
+</div>
 
 </a>
 <?php
