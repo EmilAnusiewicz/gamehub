@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Cze 08, 2026 at 02:04 PM
+-- Generation Time: Cze 23, 2026 at 12:46 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -41,7 +41,7 @@ INSERT INTO `favourites` (`id`, `game_id`, `user_id`) VALUES
 (4, 4, 1),
 (3, 5, 1),
 (5, 5, 2),
-(7, 6, 1),
+(9, 6, 1),
 (6, 6, 2);
 
 -- --------------------------------------------------------
@@ -131,18 +131,19 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `is_admin` tinyint(1) DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_blocked` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `email`, `password`, `is_admin`, `created_at`) VALUES
-(1, 'emilos206', 'emilos206@o2.pl', '$2y$10$8trxUX39iqcolCXNkglXH..6cJyokTKbC0uaC/HB0LF.jtWGYKHTS', 1, '2026-06-06 12:23:52'),
-(2, 'test123', 'test123@onet.pl', '$2y$10$bA0bSne8hHc7PD4bT6OTlO80jiVlpRI6bD9QkamrCJJegtC0mz8gu', 0, '2026-06-06 13:06:36'),
-(3, 'emilos2065', 'emil123@onet.pl', '$2y$10$Zim0wmtANDo8p0i0R990T.K4JnjHerpMjr2KrrVXGtm/jstNnZPwi', 0, '2026-06-06 13:17:34'),
-(4, 'jankowalski', 'jankowalski@gmail.com', '$2y$10$0pNxZ7ko5hCU4vSJWco5EOh4.HTqb1vKLy94Y8BAUtLz5igjZd/mK', 0, '2026-06-07 19:50:33');
+INSERT INTO `users` (`id`, `login`, `email`, `password`, `is_admin`, `created_at`, `is_blocked`) VALUES
+(1, 'emilos206', 'emilos206@o2.pl', '$2y$10$C0CJUpJQSToQScF.e0tGDuOjWLr7qsNrN0lmRT62BG5yX3PBL.32m', 1, '2026-06-06 12:23:52', 0),
+(2, 'test123', 'test123@onet.pl', '$2y$10$bA0bSne8hHc7PD4bT6OTlO80jiVlpRI6bD9QkamrCJJegtC0mz8gu', 0, '2026-06-06 13:06:36', 0),
+(3, 'emilos2065', 'emil123@onet.pl', '$2y$10$Zim0wmtANDo8p0i0R990T.K4JnjHerpMjr2KrrVXGtm/jstNnZPwi', 0, '2026-06-06 13:17:34', 0),
+(4, 'jankowalski', 'jankowalski@gmail.com', '$2y$10$0pNxZ7ko5hCU4vSJWco5EOh4.HTqb1vKLy94Y8BAUtLz5igjZd/mK', 0, '2026-06-07 19:50:33', 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -192,7 +193,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `favourites`
 --
 ALTER TABLE `favourites`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `games`
