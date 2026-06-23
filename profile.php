@@ -20,22 +20,22 @@ $user = mysqli_fetch_assoc(
 $success = "";
 $error = "";
 
-if(isset($_POST["change_password"])){
+if (isset($_POST["change_password"])) {
 
     $currentPassword = $_POST["current_password"];
     $newPassword = $_POST["new_password"];
     $repeatPassword = $_POST["repeat_password"];
 
-    if(!password_verify(
-        $currentPassword,
-        $user["password"] ?? ""
-    )){
+    if (
+        !password_verify(
+            $currentPassword,
+            $user["password"] ?? ""
+        )
+    ) {
         $error = "Aktualne hasło jest nieprawidłowe.";
-    }
-    elseif($newPassword != $repeatPassword){
+    } elseif ($newPassword != $repeatPassword) {
         $error = "Nowe hasła nie są takie same.";
-    }
-    else{
+    } else {
 
         $hash = password_hash(
             $newPassword,
@@ -112,37 +112,35 @@ WHERE user_id = $userId
 
             </p>
             <p>
-    <strong>📅 Data rejestracji:</strong>
+                <strong>📅 Data rejestracji:</strong>
 
-    <?= date(
-        "d.m.Y",
-        strtotime($user["created_at"])
-    ) ?>
+                <?= date(
+                    "d.m.Y",
+                    strtotime($user["created_at"])
+                ) ?>
 
-</p>
-</div>
+            </p>
+        </div>
 
-<?php if($success): ?>
+        <?php if ($success): ?>
 
-    <div class="success-message">
-        <?= $success ?>
-    </div>
+            <div class="success-message">
+                <?= $success ?>
+            </div>
 
-<?php endif; ?>
+        <?php endif; ?>
 
-<?php if($error): ?>
+        <?php if ($error): ?>
 
-    <div class="error-message">
-        <?= $error ?>
-    </div>
+            <div class="error-message">
+                <?= $error ?>
+            </div>
 
-<?php endif; ?>
+        <?php endif; ?>
 
- <div class="profile-actions">
+        <div class="profile-actions">
 
-            <button
-                id="showPasswordForm"
-                class="btn">
+            <button id="showPasswordForm" class="btn">
 
                 🔒 Zmień hasło
 
@@ -150,57 +148,39 @@ WHERE user_id = $userId
 
         </div>
 
-        <form
-    method="POST"
-    id="passwordForm"
-    style="display:none;margin-top:20px;">
+        <form method="POST" id="passwordForm" style="display:none;margin-top:20px;">
 
-    <input
-        type="password"
-        name="current_password"
-        placeholder="Aktualne hasło"
-        required>
+            <input type="password" name="current_password" placeholder="Aktualne hasło" required>
 
-    <input
-        type="password"
-        name="new_password"
-        placeholder="Nowe hasło"
-        required>
+            <input type="password" name="new_password" placeholder="Nowe hasło" required>
 
-    <input
-        type="password"
-        name="repeat_password"
-        placeholder="Powtórz nowe hasło"
-        required>
+            <input type="password" name="repeat_password" placeholder="Powtórz nowe hasło" required>
 
-    <button
-        type="submit"
-        name="change_password"
-        class="btn">
+            <button type="submit" name="change_password" class="btn">
 
-        Zapisz hasło
+                Zapisz hasło
 
-    </button>
+            </button>
 
-</form>
+        </form>
 
     </div>
 
 </div>
 
 <script>
-document
-.getElementById("showPasswordForm")
-.addEventListener("click", function(){
+    document
+        .getElementById("showPasswordForm")
+        .addEventListener("click", function () {
 
-    const form =
-    document.getElementById("passwordForm");
+            const form =
+                document.getElementById("passwordForm");
 
-    form.style.display =
-        form.style.display === "none"
-        ? "block"
-        : "none";
-});
+            form.style.display =
+                form.style.display === "none"
+                    ? "block"
+                    : "none";
+        });
 
 </script>
 <?php require("footer.php"); ?>

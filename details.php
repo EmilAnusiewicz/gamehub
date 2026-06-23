@@ -3,23 +3,23 @@ require("db.php");
 require("header.php");
 $favouriteMessage = "";
 
-if(isset($_GET["fav"])){
+if (isset($_GET["fav"])) {
 
-    if($_GET["fav"] == "added"){
+    if ($_GET["fav"] == "added") {
         $favouriteMessage = "❤️ Gra została dodana do ulubionych.";
     }
 
-    if($_GET["fav"] == "removed"){
+    if ($_GET["fav"] == "removed") {
         $favouriteMessage = "💔 Gra została usunięta z ulubionych.";
     }
 }
 
-if(!isset($_GET["id"])){
+if (!isset($_GET["id"])) {
     header("Location: index.php");
     exit();
 }
 
-$id = (int)$_GET["id"];
+$id = (int) $_GET["id"];
 
 $sql = "
 SELECT
@@ -33,7 +33,7 @@ WHERE games.id = $id
 
 $result = mysqli_query($conn, $sql);
 
-if(mysqli_num_rows($result) == 0){
+if (mysqli_num_rows($result) == 0) {
     header("Location: index.php");
     exit();
 }
@@ -69,7 +69,7 @@ $reviews = mysqli_query(
 );
 $isFavourite = false;
 
-if(isset($_SESSION["id"])){
+if (isset($_SESSION["id"])) {
 
     $user_id = $_SESSION["id"];
 
@@ -87,7 +87,7 @@ if(isset($_SESSION["id"])){
 }
 
 ?>
-<?php if($favouriteMessage): ?>
+<?php if ($favouriteMessage): ?>
 
     <div class="success-message">
         <?= $favouriteMessage ?>
@@ -98,11 +98,9 @@ if(isset($_SESSION["id"])){
 
     <div class="details-image">
 
-        <?php if($game["cover"]): ?>
+        <?php if ($game["cover"]): ?>
 
-            <img
-                src="uploads/covers/<?= $game["cover"] ?>"
-                alt="<?= htmlspecialchars($game["title"]) ?>">
+            <img src="uploads/covers/<?= $game["cover"] ?>" alt="<?= htmlspecialchars($game["title"]) ?>">
 
         <?php endif; ?>
 
@@ -114,35 +112,33 @@ if(isset($_SESSION["id"])){
             <?= htmlspecialchars($game["title"]) ?>
         </h1>
 
-       <div class="details-badges">
+        <div class="details-badges">
 
-    <a
-    href="catalog.php?genre=<?= $game["genre_id"] ?>"
-    class="detail-badge">
+            <a href="catalog.php?genre=<?= $game["genre_id"] ?>" class="detail-badge">
 
-    🎮 <?= htmlspecialchars($game["genre_name"]) ?>
+                🎮 <?= htmlspecialchars($game["genre_name"]) ?>
 
-</a>
+            </a>
 
-    <span class="detail-badge">
-        ⭐ Ocena redakcji:
-        <?= $game["rating"] ?>/10
-    </span>
+            <span class="detail-badge">
+                ⭐ Ocena redakcji:
+                <?= $game["rating"] ?>/10
+            </span>
 
-    <?php if($reviewsCount > 0): ?>
+            <?php if ($reviewsCount > 0): ?>
 
-        <span class="detail-badge">
+                <span class="detail-badge">
 
-            👥 Średnia użytkowników:
-            <?= $averageScore ?>/10
-            (<?= $reviewsCount ?> recenzji)
+                    👥 Średnia użytkowników:
+                    <?= $averageScore ?>/10
+                    (<?= $reviewsCount ?> recenzji)
 
-        </span>
-        
+                </span>
 
-    <?php endif; ?>
 
-</div>
+            <?php endif; ?>
+
+        </div>
 
         <div class="details-meta">
 
@@ -166,130 +162,120 @@ if(isset($_SESSION["id"])){
 
         <br>
 
-       <?php if(isset($_SESSION["id"])): ?>
+        <?php if (isset($_SESSION["id"])): ?>
 
-    <a
-        href="toggle_favourite.php?id=<?= $game["id"] ?>"
-        class="btn">
+            <a href="toggle_favourite.php?id=<?= $game["id"] ?>" class="btn">
 
-        <?php if($isFavourite): ?>
+                <?php if ($isFavourite): ?>
 
-            💔 Usuń z ulubionych
+                    💔 Usuń z ulubionych
 
-        <?php else: ?>
+                <?php else: ?>
 
-            ❤️ Dodaj do ulubionych
+                    ❤️ Dodaj do ulubionych
+
+                <?php endif; ?>
+
+            </a>
 
         <?php endif; ?>
 
-    </a>
-
-<?php endif; ?>
-
-<a href="index.php" class="btn">
-    ← Powrót
-</a>
+        <a href="index.php" class="btn">
+            ← Powrót
+        </a>
 
     </div>
 
 </div>
 <section class="reviews-section">
 
-   <h2>
-    💬 Recenzje graczy
-</h2>
-<?php if(isset($_SESSION["id"])): ?>
-<div class="review-form">
+    <h2>
+        💬 Recenzje graczy
+    </h2>
+    <?php if (isset($_SESSION["id"])): ?>
+        <div class="review-form">
 
-    <h3>
-        Dodaj swoją opinię
-    </h3>
+            <h3>
+                Dodaj swoją opinię
+            </h3>
 
-    <form action="insert_review.php" method="POST">
+            <form action="insert_review.php" method="POST">
 
-        <input
-            type="hidden"
-            name="game_id"
-            value="<?= $game["id"] ?>">
+                <input type="hidden" name="game_id" value="<?= $game["id"] ?>">
 
-        <div class="review-row">
+                <div class="review-row">
 
-            <div class="review-score">
+                    <div class="review-score">
 
-                <label>Ocena</label>
+                        <label>Ocena</label>
 
-                <select name="score">
+                        <select name="score">
 
-                    <?php for($i=1;$i<=10;$i++): ?>
+                            <?php for ($i = 1; $i <= 10; $i++): ?>
 
-                        <option value="<?= $i ?>">
-                            <?= $i ?>/10
-                        </option>
+                                <option value="<?= $i ?>">
+                                    <?= $i ?>/10
+                                </option>
 
-                    <?php endfor; ?>
+                            <?php endfor; ?>
 
-                </select>
+                        </select>
 
-            </div>
+                    </div>
 
-        </div>
-<?php else: ?>
+                </div>
+            <?php else: ?>
 
-<div class="review-form">
+                <div class="review-form">
 
-    <p>
-        Aby dodać recenzję musisz się zalogować.
-    </p>
+                    <p>
+                        Aby dodać recenzję musisz się zalogować.
+                    </p>
 
-</div>
+                </div>
 
-<?php endif; ?>
-        <label>Twoja recenzja</label>
+            <?php endif; ?>
+            <label>Twoja recenzja</label>
 
-        <textarea
-            name="content"
-            placeholder="Napisz swoją opinię o grze..."
-            required></textarea>
+            <textarea name="content" placeholder="Napisz swoją opinię o grze..." required></textarea>
 
-        <button
-            type="submit"
-            class="btn">
+            <button type="submit" class="btn">
 
-            Dodaj recenzję
+                Dodaj recenzję
 
-        </button>
+            </button>
 
-    </form>
+        </form>
 
-</div>
+    </div>
 
 
 
-    <?php while($review = mysqli_fetch_assoc($reviews)): ?>
+    <?php while ($review = mysqli_fetch_assoc($reviews)): ?>
 
         <div class="review-card">
 
-           <div class="review-header">
+            <div class="review-header">
 
-    <div class="review-user">
-        👤 <?= htmlspecialchars($review["login"]) ?>
-    </div>
+                <div class="review-user">
+                    👤 <?= htmlspecialchars($review["login"]) ?>
+                </div>
 
-    <div class="review-rating">
-        ⭐ <?= $review["score"] ?>/10
-    </div>
+                <div class="review-rating">
+                    ⭐ <?= $review["score"] ?>/10
+                </div>
 
-</div>
+            </div>
 
-<div class="review-content">
+            <div class="review-content">
 
-    <?= nl2br(
-        htmlspecialchars(
-            $review["content"]
-        )
-    ) ?>
+                <?= nl2br(
+                    htmlspecialchars(
+                        $review["content"]
+                    )
+                ) ?>
 
-</div>
+            </div>
         </div>
 
     <?php endwhile; ?>

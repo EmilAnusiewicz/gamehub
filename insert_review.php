@@ -5,8 +5,8 @@ require("db.php");
 
 $user_id = $_SESSION["id"];
 
-$game_id = (int)$_POST["game_id"];
-$score = (int)$_POST["score"];
+$game_id = (int) $_POST["game_id"];
+$score = (int) $_POST["score"];
 
 $content = mysqli_real_escape_string(
     $conn,

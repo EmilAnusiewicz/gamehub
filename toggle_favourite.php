@@ -4,7 +4,7 @@ require("session.php");
 require("db.php");
 
 $user_id = $_SESSION["id"];
-$game_id = (int)$_GET["id"];
+$game_id = (int) $_GET["id"];
 
 $check = mysqli_query(
     $conn,
@@ -16,7 +16,7 @@ $check = mysqli_query(
     "
 );
 
-if(mysqli_num_rows($check) == 0){
+if (mysqli_num_rows($check) == 0) {
 
     mysqli_query(
         $conn,
@@ -32,7 +32,7 @@ if(mysqli_num_rows($check) == 0){
         "Location: details.php?id=$game_id&fav=added"
     );
 
-}else{
+} else {
 
     mysqli_query(
         $conn,

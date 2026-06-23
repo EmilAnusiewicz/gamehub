@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $cover = "";
 
-    if(isset($_FILES["cover"]) && $_FILES["cover"]["error"] == 0){
+    if (isset($_FILES["cover"]) && $_FILES["cover"]["error"] == 0) {
 
         $filename = time() . "_" . basename($_FILES["cover"]["name"]);
 
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     )
     ";
 
-    if(mysqli_query($conn,$sql)){
+    if (mysqli_query($conn, $sql)) {
         $message = "Gra została dodana.";
     }
 }
@@ -70,7 +70,7 @@ require("header.php");
 
         <h1>Dodaj grę</h1>
 
-        <?php if($message): ?>
+        <?php if ($message): ?>
             <div class="success-message">
                 <?= $message ?>
             </div>
@@ -90,7 +90,7 @@ require("header.php");
             <label>Gatunek</label>
             <select name="genre_id">
 
-                <?php while($genre = mysqli_fetch_assoc($genres)): ?>
+                <?php while ($genre = mysqli_fetch_assoc($genres)): ?>
 
                     <option value="<?= $genre["id"] ?>">
                         <?= $genre["name"] ?>
@@ -101,36 +101,20 @@ require("header.php");
             </select>
 
             <label>Ocena</label>
-            <input type="number"
-                   step="0.1"
-                   min="0"
-                   max="10"
-                   name="rating">
+            <input type="number" step="0.1" min="0" max="10" name="rating">
 
             <label>Opis</label>
-            <textarea
-                rows="5"
-                name="description"></textarea>
+            <textarea rows="5" name="description"></textarea>
 
-  <label>Okładka gry</label>
+            <label>Okładka gry</label>
 
-<div class="upload-box">
-    <input
-        type="file"
-        name="cover"
-        id="cover"
-        accept="image/*">
-</div>
+            <div class="upload-box">
+                <input type="file" name="cover" id="cover" accept="image/*">
+            </div>
 
-<img
-    id="preview"
-    src=""
-    alt=""
-    style="display:none;">
+            <img id="preview" src="" alt="" style="display:none;">
 
-            <button
-                type="submit"
-                class="auth-btn">
+            <button type="submit" class="auth-btn">
 
                 Dodaj grę
 

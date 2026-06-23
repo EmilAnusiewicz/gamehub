@@ -3,7 +3,7 @@
 require("session.php");
 require("db.php");
 
-$id = (int)$_GET["id"];
+$id = (int) $_GET["id"];
 $user_id = $_SESSION["id"];
 
 $result = mysqli_query(
@@ -18,14 +18,14 @@ $result = mysqli_query(
 
 $review = mysqli_fetch_assoc($result);
 
-if(!$review){
+if (!$review) {
     header("Location: my_reviews.php");
     exit;
 }
 
-if($_SERVER["REQUEST_METHOD"] === "POST"){
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $score = (int)$_POST["score"];
+    $score = (int) $_POST["score"];
     $content = mysqli_real_escape_string(
         $conn,
         $_POST["content"]
@@ -61,11 +61,9 @@ require("header.php");
 
             <select name="score">
 
-                <?php for($i=1;$i<=10;$i++): ?>
+                <?php for ($i = 1; $i <= 10; $i++): ?>
 
-                    <option
-                        value="<?= $i ?>"
-                        <?= $review["score"] == $i ? "selected" : "" ?>>
+                    <option value="<?= $i ?>" <?= $review["score"] == $i ? "selected" : "" ?>>
 
                         <?= $i ?>/10
 
@@ -77,13 +75,9 @@ require("header.php");
 
             <label>Treść recenzji</label>
 
-            <textarea
-                name="content"
-                rows="8"><?= htmlspecialchars($review["content"]) ?></textarea>
+            <textarea name="content" rows="8"><?= htmlspecialchars($review["content"]) ?></textarea>
 
-            <button
-                type="submit"
-                class="btn">
+            <button type="submit" class="btn">
 
                 Zapisz zmiany
 

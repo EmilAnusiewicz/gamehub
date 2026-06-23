@@ -20,17 +20,13 @@
 
         <div class="modal-actions">
 
-            <button
-                id="confirmDelete"
-                class="btn btn-danger">
+            <button id="confirmDelete" class="btn btn-danger">
 
                 Tak
 
             </button>
 
-            <button
-                id="cancelDelete"
-                class="btn">
+            <button id="cancelDelete" class="btn">
 
                 Nie
 
@@ -45,4 +41,5 @@
 <script src="js/app.js?v=999"></script>
 
 </body>
+
 </html>

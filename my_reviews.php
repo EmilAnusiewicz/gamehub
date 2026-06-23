@@ -29,71 +29,62 @@ $result = mysqli_query(
         📝 Moje recenzje
     </h1>
 
-    <?php if(mysqli_num_rows($result) > 0): ?>
+    <?php if (mysqli_num_rows($result) > 0): ?>
 
         <div class="reviews-list">
 
-            <?php while($review = mysqli_fetch_assoc($result)): ?>
+            <?php while ($review = mysqli_fetch_assoc($result)): ?>
 
                 <div class="review-card">
 
-    <div class="review-game">
+                    <div class="review-game">
 
-        <img
-    src="uploads/covers/<?= htmlspecialchars($review["cover"]) ?>"
-    class="review-cover"
-    alt="">
+                        <img src="uploads/covers/<?= htmlspecialchars($review["cover"]) ?>" class="review-cover" alt="">
 
-        <div class="review-info">
+                        <div class="review-info">
 
-                    <div class="review-header">
+                            <div class="review-header">
 
-                        <h3>
-                            <?= htmlspecialchars($review["title"]) ?>
-                        </h3>
+                                <h3>
+                                    <?= htmlspecialchars($review["title"]) ?>
+                                </h3>
 
-                        <div class="review-score">
-                            ⭐ <?= $review["score"] ?>/10
+                                <div class="review-score">
+                                    ⭐ <?= $review["score"] ?>/10
+                                </div>
+
+                            </div>
+
+                            <p class="review-content">
+
+                                <?= nl2br(htmlspecialchars($review["content"])) ?>
+
+                            </p>
                         </div>
-
-                    </div>
-
-                    <p class="review-content">
-
-                        <?= nl2br(htmlspecialchars($review["content"])) ?>
-
-                    </p>
-                    </div>
                     </div>
 
 
                     <div class="review-actions">
 
-    <a
-        href="edit_review.php?id=<?= $review["id"] ?>"
-        class="btn">
+                        <a href="edit_review.php?id=<?= $review["id"] ?>" class="btn">
 
-        ✏️ Edytuj
+                            ✏️ Edytuj
 
-    </a>
+                        </a>
 
-    <a
-    href="delete_review.php?id=<?= $review["id"] ?>"
-    class="btn btn-danger delete-btn">
+                        <a href="delete_review.php?id=<?= $review["id"] ?>" class="btn btn-danger delete-btn">
 
-    🗑 Usuń
+                            🗑 Usuń
 
-</a>
+                        </a>
 
-    <a
-        href="details.php?id=<?= $review["game_id"] ?>"
-        class="btn">
+                        <a href="details.php?id=<?= $review["game_id"] ?>" class="btn">
 
-        🎮 Szczegóły
+                            🎮 Szczegóły
 
-    </a>
+                        </a>
 
-</div>
+                    </div>
 
                 </div>
 

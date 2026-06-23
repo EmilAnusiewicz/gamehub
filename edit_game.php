@@ -4,7 +4,7 @@ require("admin_guard.php");
 require("session.php");
 require("db.php");
 
-$id = (int)$_GET["id"];
+$id = (int) $_GET["id"];
 
 $gameQuery = mysqli_query(
     $conn,
@@ -13,7 +13,7 @@ $gameQuery = mysqli_query(
 
 $game = mysqli_fetch_assoc($gameQuery);
 
-if(!$game){
+if (!$game) {
     header("Location: catalog.php");
     exit;
 }
@@ -31,14 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $cover = $game["cover"];
 
-    if(
+    if (
         isset($_FILES["cover"])
         && $_FILES["cover"]["error"] == 0
-    ){
+    ) {
 
         $filename =
-        time() . "_" .
-        basename($_FILES["cover"]["name"]);
+            time() . "_" .
+            basename($_FILES["cover"]["name"]);
 
         move_uploaded_file(
             $_FILES["cover"]["tmp_name"],
@@ -88,14 +88,14 @@ require("header.php");
 
         <h1>Edytuj grę</h1>
 
-        <?php if($message): ?>
+        <?php if ($message): ?>
 
             <div class="success-message">
                 <?= $message ?>
-                 <br><br>
+                <br><br>
 
-    Za 5 sekund nastąpi powrót
-    do katalogu gier.
+                Za 5 sekund nastąpi powrót
+                do katalogu gier.
 
             </div>
 
@@ -105,35 +105,23 @@ require("header.php");
 
             <label>Tytuł</label>
 
-            <input
-                type="text"
-                name="title"
-                value="<?= htmlspecialchars($game["title"]) ?>"
-                required>
+            <input type="text" name="title" value="<?= htmlspecialchars($game["title"]) ?>" required>
 
             <label>Producent</label>
 
-            <input
-                type="text"
-                name="developer"
-                value="<?= htmlspecialchars($game["developer"]) ?>">
+            <input type="text" name="developer" value="<?= htmlspecialchars($game["developer"]) ?>">
 
             <label>Rok wydania</label>
 
-            <input
-                type="number"
-                name="release_year"
-                value="<?= $game["release_year"] ?>">
+            <input type="number" name="release_year" value="<?= $game["release_year"] ?>">
 
             <label>Gatunek</label>
 
             <select name="genre_id">
 
-                <?php while($genre = mysqli_fetch_assoc($genres)): ?>
+                <?php while ($genre = mysqli_fetch_assoc($genres)): ?>
 
-                    <option
-                        value="<?= $genre["id"] ?>"
-                        <?= $genre["id"] == $game["genre_id"] ? "selected" : "" ?>>
+                    <option value="<?= $genre["id"] ?>" <?= $genre["id"] == $game["genre_id"] ? "selected" : "" ?>>
 
                         <?= htmlspecialchars($genre["name"]) ?>
 
@@ -145,42 +133,25 @@ require("header.php");
 
             <label>Ocena</label>
 
-            <input
-                type="number"
-                step="0.1"
-                min="0"
-                max="10"
-                name="rating"
-                value="<?= $game["rating"] ?>">
+            <input type="number" step="0.1" min="0" max="10" name="rating" value="<?= $game["rating"] ?>">
 
             <label>Opis</label>
 
-            <textarea
-                rows="5"
-                name="description"><?= htmlspecialchars($game["description"]) ?></textarea>
+            <textarea rows="5" name="description"><?= htmlspecialchars($game["description"]) ?></textarea>
 
             <label>Aktualna okładka</label>
 
-            <img
-                src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>"
-                id="preview"
-                style="display:block;">
+            <img src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>" id="preview" style="display:block;">
 
             <label>Nowa okładka (opcjonalnie)</label>
 
             <div class="upload-box">
 
-                <input
-                    type="file"
-                    name="cover"
-                    id="cover"
-                    accept="image/*">
+                <input type="file" name="cover" id="cover" accept="image/*">
 
             </div>
 
-            <button
-                type="submit"
-                class="auth-btn">
+            <button type="submit" class="auth-btn">
 
                 Zapisz zmiany
 

@@ -3,9 +3,9 @@
 require("admin_guard.php");
 require("db.php");
 
-$id = (int)$_GET["id"];
+$id = (int) $_GET["id"];
 
-if($id != $_SESSION["id"]){
+if ($id != $_SESSION["id"]) {
 
     mysqli_query(
         $conn,

@@ -3,7 +3,7 @@
 require("session.php");
 require("db.php");
 
-$id = (int)$_GET["id"];
+$id = (int) $_GET["id"];
 $user_id = $_SESSION["id"];
 
 mysqli_query(

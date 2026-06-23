@@ -3,7 +3,7 @@
 require("admin_guard.php");
 require("db.php");
 
-$id = (int)$_GET["id"];
+$id = (int) $_GET["id"];
 
 mysqli_query(
     $conn,

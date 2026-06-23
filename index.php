@@ -16,7 +16,7 @@ ON games.genre_id = genres.id
 WHERE 1=1
 ";
 
-if($search != ""){
+if ($search != "") {
 
     $search = mysqli_real_escape_string(
         $conn,
@@ -28,9 +28,9 @@ if($search != ""){
     ";
 }
 
-if($genre != ""){
+if ($genre != "") {
 
-    $genre = (int)$genre;
+    $genre = (int) $genre;
 
     $sql .= "
     AND games.genre_id = $genre
@@ -42,7 +42,7 @@ ORDER BY games.id DESC
 LIMIT 4
 ";
 
-$result = mysqli_query($conn,$sql);
+$result = mysqli_query($conn, $sql);
 
 $genresResult = mysqli_query(
     $conn,
@@ -82,7 +82,7 @@ $topGames = mysqli_query(
         i społeczność graczy.
     </p>
 
-    <?php if(!isset($_SESSION["id"])): ?>
+    <?php if (!isset($_SESSION["id"])): ?>
         <a href="register.php" class="btn">
             Rozpocznij za darmo
         </a>
@@ -174,33 +174,31 @@ $reviewsCount = mysqli_fetch_assoc(
 
     <div class="games-grid">
 
-        <?php while($game = mysqli_fetch_assoc($result)): ?>
+        <?php while ($game = mysqli_fetch_assoc($result)): ?>
             <?php
 
-$gameId = $game["id"];
+            $gameId = $game["id"];
 
-$avgResult = mysqli_query(
-    $conn,
-    "
+            $avgResult = mysqli_query(
+                $conn,
+                "
     SELECT
         ROUND(AVG(score),1) AS avg_score,
         COUNT(*) AS reviews_count
     FROM reviews
     WHERE game_id = $gameId
     "
-);
+            );
 
-$avgData = mysqli_fetch_assoc($avgResult);
+            $avgData = mysqli_fetch_assoc($avgResult);
 
-?>
+            ?>
 
             <div class="game-card">
 
-                <?php if($game["cover"]): ?>
+                <?php if ($game["cover"]): ?>
 
-                    <img
-                        src="uploads/covers/<?= $game["cover"] ?>"
-                        alt="<?= htmlspecialchars($game["title"]) ?>">
+                    <img src="uploads/covers/<?= $game["cover"] ?>" alt="<?= htmlspecialchars($game["title"]) ?>">
 
                 <?php endif; ?>
 
@@ -214,27 +212,25 @@ $avgData = mysqli_fetch_assoc($avgResult);
                         🎮 <?= htmlspecialchars($game["genre_name"]) ?>
                     </p>
 
-                    <?php if($avgData["reviews_count"] > 0): ?>
+                    <?php if ($avgData["reviews_count"] > 0): ?>
 
-    <p>
-         ⭐ <?= $game["rating"] ?>/10 ocena redakcji<br>
-        👥 <?= $avgData["avg_score"] ?>/10 ocena użytkowników
-        (<?= $avgData["reviews_count"] ?>)
-    </p>
+                        <p>
+                            ⭐ <?= $game["rating"] ?>/10 ocena redakcji<br>
+                            👥 <?= $avgData["avg_score"] ?>/10 ocena użytkowników
+                            (<?= $avgData["reviews_count"] ?>)
+                        </p>
 
-<?php else: ?>
+                    <?php else: ?>
 
-    <p>
-        Brak ocen użytkowników
-    </p>
+                        <p>
+                            Brak ocen użytkowników
+                        </p>
 
-<?php endif; ?>
+                    <?php endif; ?>
 
                     <br>
 
-                    <a
-                        href="details.php?id=<?= $game["id"] ?>"
-                        class="btn">
+                    <a href="details.php?id=<?= $game["id"] ?>" class="btn">
 
                         Szczegóły
 
@@ -257,15 +253,13 @@ $avgData = mysqli_fetch_assoc($avgResult);
 
     <div class="games-grid">
 
-        <?php while($game = mysqli_fetch_assoc($topGames)): ?>
+        <?php while ($game = mysqli_fetch_assoc($topGames)): ?>
 
             <div class="game-card">
 
-                <?php if($game["cover"]): ?>
+                <?php if ($game["cover"]): ?>
 
-                    <img
-                        src="uploads/covers/<?= $game["cover"] ?>"
-                        alt="<?= htmlspecialchars($game["title"]) ?>">
+                    <img src="uploads/covers/<?= $game["cover"] ?>" alt="<?= htmlspecialchars($game["title"]) ?>">
 
                 <?php endif; ?>
 
@@ -285,9 +279,7 @@ $avgData = mysqli_fetch_assoc($avgResult);
 
                     <br>
 
-                    <a
-                        href="details.php?id=<?= $game["id"] ?>"
-                        class="btn">
+                    <a href="details.php?id=<?= $game["id"] ?>" class="btn">
 
                         Szczegóły
 

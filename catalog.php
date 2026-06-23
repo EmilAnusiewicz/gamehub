@@ -9,9 +9,9 @@ $genres = mysqli_query(
 
 $where = "";
 
-if(isset($_GET["genre"]) && $_GET["genre"] != ""){
+if (isset($_GET["genre"]) && $_GET["genre"] != "") {
 
-    $genre = (int)$_GET["genre"];
+    $genre = (int) $_GET["genre"];
 
     $where = "
     WHERE games.genre_id = $genre
@@ -43,55 +43,45 @@ $query = mysqli_query(
     </h2>
     <div class="catalog-tools">
 
-    <input
-        type="text"
-        id="catalogSearch"
-        placeholder="🔍 Szukaj gry...">
+        <input type="text" id="catalogSearch" placeholder="🔍 Szukaj gry...">
 
-    <form method="GET" class="filter-form">
+        <form method="GET" class="filter-form">
 
-        <select name="genre">
+            <select name="genre">
 
-            <option value="">
-                Wszystkie gatunki
-            </option>
-
-            <?php while($genre = mysqli_fetch_assoc($genres)): ?>
-
-                <option
-                    value="<?= $genre["id"] ?>"
-                    <?= isset($_GET["genre"]) && $_GET["genre"] == $genre["id"] ? "selected" : "" ?>>
-
-                    <?= htmlspecialchars($genre["name"]) ?>
-
+                <option value="">
+                    Wszystkie gatunki
                 </option>
 
-            <?php endwhile; ?>
+                <?php while ($genre = mysqli_fetch_assoc($genres)): ?>
 
-        </select>
+                    <option value="<?= $genre["id"] ?>" <?= isset($_GET["genre"]) && $_GET["genre"] == $genre["id"] ? "selected" : "" ?>>
 
-        <button
-            type="submit"
-            class="btn">
+                        <?= htmlspecialchars($genre["name"]) ?>
 
-            Filtruj
+                    </option>
 
-        </button>
+                <?php endwhile; ?>
 
-    </form>
+            </select>
 
-</div>
+            <button type="submit" class="btn">
 
-<div class="games-grid">
+                Filtruj
 
-        <?php while($game = mysqli_fetch_assoc($query)): ?>
+            </button>
 
-            <div
-    class="game-card"
-    data-title="<?= strtolower(htmlspecialchars($game["title"])) ?>">
+        </form>
 
-                <img
-                    src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>"
+    </div>
+
+    <div class="games-grid">
+
+        <?php while ($game = mysqli_fetch_assoc($query)): ?>
+
+            <div class="game-card" data-title="<?= strtolower(htmlspecialchars($game["title"])) ?>">
+
+                <img src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>"
                     alt="<?= htmlspecialchars($game["title"]) ?>">
 
                 <div class="game-content">
@@ -110,37 +100,31 @@ $query = mysqli_query(
 
                     <br>
 
-                   <div class="game-actions">
+                    <div class="game-actions">
 
-    <a
-        href="details.php?id=<?= $game["id"] ?>"
-        class="btn">
+                        <a href="details.php?id=<?= $game["id"] ?>" class="btn">
 
-        🎮 Szczegóły
+                            🎮 Szczegóły
 
-    </a>
+                        </a>
 
-    <?php if(isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1): ?>
+                        <?php if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1): ?>
 
-        <a
-            href="edit_game.php?id=<?= $game["id"] ?>"
-            class="btn">
+                            <a href="edit_game.php?id=<?= $game["id"] ?>" class="btn">
 
-            ✏️ Edytuj
+                                ✏️ Edytuj
 
-        </a>
+                            </a>
 
-        <a
-            href="delete_game.php?id=<?= $game["id"] ?>"
-            class="btn btn-danger delete-btn">
+                            <a href="delete_game.php?id=<?= $game["id"] ?>" class="btn btn-danger delete-btn">
 
-            🗑 Usuń
+                                🗑 Usuń
 
-        </a>
+                            </a>
 
-    <?php endif; ?>
+                        <?php endif; ?>
 
-</div>
+                    </div>
 
                 </div>
 
@@ -153,33 +137,33 @@ $query = mysqli_query(
 </section>
 <script>
 
-const searchInput =
-document.getElementById("catalogSearch");
+    const searchInput =
+        document.getElementById("catalogSearch");
 
-if(searchInput){
+    if (searchInput) {
 
-    searchInput.addEventListener(
-        "keyup",
-        function(){
+        searchInput.addEventListener(
+            "keyup",
+            function () {
 
-            const value =
-            this.value.toLowerCase();
+                const value =
+                    this.value.toLowerCase();
 
-            document
-                .querySelectorAll(".game-card")
-                .forEach(card=>{
+                document
+                    .querySelectorAll(".game-card")
+                    .forEach(card => {
 
-                    const title =
-                    card.dataset.title;
+                        const title =
+                            card.dataset.title;
 
-                    card.style.display =
-                        title.includes(value)
-                        ? ""
-                        : "none";
-                });
-        }
-    );
-}
+                        card.style.display =
+                            title.includes(value)
+                                ? ""
+                                : "none";
+                    });
+            }
+        );
+    }
 
 </script>
 <?php require("footer.php"); ?>

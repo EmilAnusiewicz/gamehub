@@ -9,7 +9,7 @@ $search = mysqli_real_escape_string(
     $search
 );
 
-if(strlen($search) < 2){
+if (strlen($search) < 2) {
     exit;
 }
 
@@ -31,33 +31,27 @@ ON games.genre_id = genres.id
     "
 );
 
-while($game = mysqli_fetch_assoc($result))
-{
-?>
-    <a
-    class="search-item"
-    href="details.php?id=<?= $game["id"] ?>">
+while ($game = mysqli_fetch_assoc($result)) {
+    ?>
+    <a class="search-item" href="details.php?id=<?= $game["id"] ?>">
 
-    <img
-        src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>"
-        alt=""
-        class="search-thumb">
+        <img src="uploads/covers/<?= htmlspecialchars($game["cover"]) ?>" alt="" class="search-thumb">
 
-    <div class="search-info">
+        <div class="search-info">
 
-    <strong>
-        <?= htmlspecialchars($game["title"]) ?>
-    </strong>
+            <strong>
+                <?= htmlspecialchars($game["title"]) ?>
+            </strong>
 
-    <small>
-        🎮 <?= htmlspecialchars($game["genre_name"]) ?>
-        •
-        ⭐ <?= $game["rating"] ?>/10
-    </small>
+            <small>
+                🎮 <?= htmlspecialchars($game["genre_name"]) ?>
+                •
+                ⭐ <?= $game["rating"] ?>/10
+            </small>
 
-</div>
+        </div>
 
-</a>
-<?php
+    </a>
+    <?php
 }
 ?>

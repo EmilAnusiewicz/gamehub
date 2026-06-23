@@ -15,7 +15,7 @@ ON favourites.game_id = games.id
 WHERE favourites.user_id = $user_id
 ";
 
-$result = mysqli_query($conn,$sql);
+$result = mysqli_query($conn, $sql);
 
 ?>
 
@@ -27,13 +27,11 @@ $result = mysqli_query($conn,$sql);
 
     <div class="games-grid">
 
-        <?php while($game = mysqli_fetch_assoc($result)): ?>
+        <?php while ($game = mysqli_fetch_assoc($result)): ?>
 
             <div class="game-card">
 
-                <img
-                    src="uploads/covers/<?= $game["cover"] ?>"
-                    alt="">
+                <img src="uploads/covers/<?= $game["cover"] ?>" alt="">
 
                 <div class="game-content">
 
@@ -45,9 +43,7 @@ $result = mysqli_query($conn,$sql);
                         ⭐ <?= $game["rating"] ?>/10
                     </p>
 
-                    <a
-                        href="details.php?id=<?= $game["id"] ?>"
-                        class="btn">
+                    <a href="details.php?id=<?= $game["id"] ?>" class="btn">
 
                         Szczegóły
 
